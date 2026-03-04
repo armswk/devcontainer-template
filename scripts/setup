@@ -1,2 +1,20 @@
-#/bin/bash
-/usr/local/bin/mise trust /workspaces/devcontainer/mise.toml && /usr/local/bin/mise install
+#!/bin/bash
+set -e # Exit immediately if any command fails
+
+echo "Updating system..."
+sudo apt-get update
+
+# Dynamically install the correct clipboard tool
+if [ -n "$WAYLAND_DISPLAY" ]; then
+  echo "Wayland detected. Installing wl-clipboard..."
+  sudo apt-get install -y wl-clipboard
+else
+  echo "X11 (or no Wayland) detected. Installing xclip..."
+  sudo apt-get install -y xclip
+fi
+
+echo "Setting up mise environment..."
+/usr/local/bin/mise trust /workspaces/devcontainer/mise.toml
+/usr/local/bin/mise install
+
+echo "Devcontainer setup complete!"
