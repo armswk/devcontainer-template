@@ -9,11 +9,11 @@
   "containerEnv": {
     "DISPLAY": "${localEnv:DISPLAY}",
     "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
-    "XDG_RUNTIME_DIR": "/run/user/${localEnv:UID:-1000}"
+    "XDG_RUNTIME_DIR": "/run/user/1000"
   },
   "mounts": [
     "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
-    "source=/run/user/${localEnv:UID:-1000},target=/run/user/${localEnv:UID:-1000},type=bind"
+    "source=/run/user/1000,target=/run/user/1000,type=bind"
   ],
-  "postCreateCommand": "scripts/setup"
+  "postCreateCommand": "bash scripts/setup"
 }
