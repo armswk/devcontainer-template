@@ -1,0 +1,3 @@
+#Tools requirement for the project
+#Default files included: https://github.com/armswk/dotfiles-devpod/blob/main/dot_config/mise/config.toml
+[tools]
