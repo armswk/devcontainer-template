@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e # Exit immediately if any command fails
+set -e pipefail # Exit immediately if any command fails
 
 echo "Updating system..."
 sudo apt-get update
@@ -14,7 +14,13 @@ else
 fi
 
 echo "Setting up mise environment..."
-/usr/local/bin/mise trust /workspaces/devcontainer/mise.toml
-/usr/local/bin/mise install
+# Only run mise if the mise.toml file actually exists in this project
+if [ -f "mise.toml" ]; then
+  echo "Found mise.toml! Trusting and installing..."
+  /usr/local/bin/mise trust mise.toml
+  /usr/local/bin/mise install
+else
+  echo "No mise.toml found in this project. Skipping mise setup."
+fi
 
 echo "Devcontainer setup complete!"
